@@ -3,7 +3,7 @@
  * MEMS Microphone SPU0410HR5H
  **/
 //% weight=100 color=#00A654 icon="\uf130" block="Microphone"
-namespace mic {
+namespace Kitronik_Microphone {
 
 
     //Enum commented out, code for future version
