@@ -2,7 +2,6 @@
  * Kitronik MEMS microphone blocks
  * MEMS Microphone SPU0410HR5H
  **/
-//% weight=100 color=#00A654 icon="\uf130" block="Microphone"
 namespace Kitronik_Microphone {
 
 
