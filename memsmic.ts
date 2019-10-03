@@ -3,7 +3,7 @@
  * MEMS Microphone SPU0410HR5H
  **/
 //% weight=100 color=#00A654 icon="\uf130" block="Microphone"
-namespace Kitronik_Microphone {
+namespace mic {
 
 
     //Enum commented out, code for future version
@@ -24,20 +24,20 @@ namespace Kitronik_Microphone {
 
     //Global variables and setting default values
     let soundSpike_handler: Action
-    let sound_handler: Action
-    let initialised = false
-    let micListening = false
-    let microphonePin = AnalogPin.P0
+    export let sound_handler: Action
+    export let initialised = false
+    export let micListening = false
+    export let microphonePin = AnalogPin.P0
     let noiseSample = 0
-    let samplesArray = [0, 0, 0, 0, 0]
+    export let samplesArray = [0, 0, 0, 0, 0]
     let maxSamplesArray = [0, 0, 0, 0, 0]
     let clapListening = false
     let clap_time = input.runningTime()
-    let threshold = 0
-    let baseVoltageLevel = 580
-    let numberOfClaps = 1
+    export let threshold = 0
+    export let baseVoltageLevel = 580
+    export let numberOfClaps = 1
     let claps = 1
-    let period = 1000
+    export let period = 1000
     let distance = 500
 
     //Function to initialise the LCD and SPI
