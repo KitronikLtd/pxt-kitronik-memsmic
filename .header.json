@@ -1,0 +1,18 @@
+{
+    "target": "microbit",
+    "targetVersion": "2.1.13",
+    "name": "pxt-kitronik-memsmic",
+    "meta": {},
+    "editor": "tsprj",
+    "pubId": "",
+    "pubCurrent": false,
+    "_rev": null,
+    "id": "dab16ea6-c569-4092-70d3-78e66fe0027f",
+    "recentUse": 1570108002,
+    "modificationTime": 1570108002,
+    "blobId": null,
+    "blobVersion": null,
+    "blobCurrent": false,
+    "isDeleted": false,
+    "path": "pxt-kitronik-memsmic"
+}

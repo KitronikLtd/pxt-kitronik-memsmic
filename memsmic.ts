@@ -2,7 +2,7 @@
  * Kitronik MEMS microphone blocks
  * MEMS Microphone SPU0410HR5H
  **/
-namespace Kitronik_Microphone {
+namespace kitronik_microphone {
 
 
     //Enum commented out, code for future version
