@@ -143,8 +143,6 @@ namespace Kitronik_Microphone {
     * Read Sound Level blocks returns back a number of the current sound level at that point
     */
     //% blockId=kitronik_microphone_read_sound_level
-    //% block="read sound level"
-    //% weight=100 blockGap=8
     function readSoundLevel() {
         if (initialised == false) {
             init()
@@ -153,67 +151,68 @@ namespace Kitronik_Microphone {
         return read
     }
 
+    /*FUNCTIONS COMMENTED OUT AS THEY ARE ACTUALLY DEFINED IN THE OTHER EXTENSIOSN*/
 
-	/**
-    * Read Sound Level blocks returns back a number of the current sound level averaged over 5 samples
-    */
-    //% blockId=kitronik_microphone_read_average_sound_level
-    //% block="read average sound level"
-    //% weight=100 blockGap=8
-    function readAverageSoundLevel() {
-        let x = 0
-        let soundlevel = 0
-        let sample = 0
+	///**
+    //* Read Sound Level blocks returns back a number of the current sound level averaged over 5 samples
+    //*/
+    ////% blockId=kitronik_microphone_read_average_sound_level
+    ////% block="read average sound level"
+    ////% weight=100 blockGap=8
+    //function readAverageSoundLevel() {
+    //    let x = 0
+    //    let soundlevel = 0
+    //    let sample = 0
 
-        if (initialised == false) {
-            init()
-        }
+    //    if (initialised == false) {
+    //        init()
+    //    }
 
-        if (micListening == false) {
-            micStartListening()
-        }
+    //    if (micListening == false) {
+    //        micStartListening()
+    //    }
 
-        for (x = 0; x < 5; x++) {
-            sample = samplesArray[x]
-            if (sample > soundlevel) {
-                soundlevel = sample
-            }
-        }
+    //    for (x = 0; x < 5; x++) {
+    //        sample = samplesArray[x]
+    //        if (sample > soundlevel) {
+    //            soundlevel = sample
+    //        }
+    //    }
 
-        return soundlevel
-    }
+    //    return soundlevel
+    //}
 
-    /**
-	* Performs an action when a spike in sound
-	* @param claps is the number of claps to listen out for before running the function e.g. "1"
-	* @param timerperiod is period of time in which to listen for the claps or spikes e.g. "1000"
-	* @param soundSpike_handler is function that is run once detection in sound 
-    */
-    //% blockId=kitronik_microphone_wait_for_clap
-    //% block="wait for %claps claps within %timerperiod|ms"
-    //% claps.min=1 claps.max=10
-    //% timerperiod.min=500 timerperiod.max=2500
-    //% weight=95 blockGap=8
-    function waitForClap(claps: number, timerperiod: number, soundSpike_handler: Action): void {
-        if (initialised == false) {
-            init()
-        }
-        numberOfClaps = claps
-        period = timerperiod
-        sound_handler = soundSpike_handler
-        startClapListening()
-    }
+    ///**
+	//* Performs an action when a spike in sound
+	//* @param claps is the number of claps to listen out for before running the function e.g. "1"
+	//* @param timerperiod is period of time in which to listen for the claps or spikes e.g. "1000"
+	//* @param soundSpike_handler is function that is run once detection in sound 
+    //*/
+    ////% blockId=kitronik_microphone_wait_for_clap
+    ////% block="wait for %claps claps within %timerperiod|ms"
+    ////% claps.min=1 claps.max=10
+    ////% timerperiod.min=500 timerperiod.max=2500
+    ////% weight=95 blockGap=8
+    //function waitForClap(claps: number, timerperiod: number, soundSpike_handler: Action): void {
+    //    if (initialised == false) {
+    //        init()
+    //    }
+    //    numberOfClaps = claps
+    //    period = timerperiod
+    //    sound_handler = soundSpike_handler
+    //    startClapListening()
+    //}
 
-	/**
-     * Set how sensitive the microphone is when detecting claps
-     * @param value - sensitivity (0-100)
-     */
-    //% blockId=kitronik_microphone_set_mic_sensitivity
-    //% block="Set mic sensitivity to %value"
-    //% value.min=0 value.max=100 value.defl=80
-    function setClapSensitivity(value: number): void {
-        value = Math.clamp(0, 100, value)
-        threshold = baseVoltageLevel + (105 - value)
-    }
+	///**
+    // * Set how sensitive the microphone is when detecting claps
+    // * @param value - sensitivity (0-100)
+    // */
+    ////% blockId=kitronik_microphone_set_mic_sensitivity
+    ////% block="Set mic sensitivity to %value"
+    ////% value.min=0 value.max=100 value.defl=80
+    //function setClapSensitivity(value: number): void {
+    //    value = Math.clamp(0, 100, value)
+    //    threshold = baseVoltageLevel + (105 - value)
+    //}
 
 } 
