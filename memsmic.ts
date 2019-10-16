@@ -58,6 +58,7 @@ namespace kitronik_microphone {
     }
 
     export function micStartListening() {
+		if (micListening) return
         control.inBackground(() => {
             while (true) {
                 samplesArray[noiseSample] = Math.abs(readSoundLevel())
@@ -95,7 +96,7 @@ namespace kitronik_microphone {
         let recordedClaps = 0
         while (input.runningTime() < (startTimeOfWaiting + timerperiod)) {
             if (waitForSingleClap(threshold, 50)) {
-                control.waitMicros(10000)
+                control.waitMicros(5000)
                 if (waitForSingleClap(threshold, distance)) {
                     recordedClaps += 1
                 }
