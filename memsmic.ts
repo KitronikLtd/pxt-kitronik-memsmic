@@ -112,11 +112,11 @@ namespace kitronik_microphone {
 			if ((finishClapTime - startClapTime) <= period){
 				basic.showNumber(2)
 				sound_handler()
-				startClap = false
-				startClapTime = 0
-				finishClap = false
-				finishClapTime = 0
 			}
+			startClap = false
+			startClapTime = 0
+			finishClap = false
+			finishClapTime = 0
 		}
     }
 
