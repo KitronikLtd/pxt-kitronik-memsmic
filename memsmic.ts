@@ -34,7 +34,7 @@ namespace kitronik_microphone {
     //let clap_time = input.runningTime()
     export let threshold = 0
     export let baseVoltageLevel = 580
-    export let numberOfClaps
+    export let numberOfClaps = 0
     let claps = 1
 	let recordedClaps = 0
 	let	startClap = false
