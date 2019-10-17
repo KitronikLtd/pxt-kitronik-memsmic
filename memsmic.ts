@@ -84,7 +84,7 @@ namespace kitronik_microphone {
         //}
 		
 		if (waitForSingleClap(threshold, 50))
-				if (claps == 1){
+				if (numberOfClaps == 1){
 					sound_handler()
 				}
 				else{
@@ -93,7 +93,7 @@ namespace kitronik_microphone {
 						startClapTime = input.runningTime()
 						startClap = true
 					}
-					else if (recordedClaps == claps){
+					else if (recordedClaps == numberOfClaps){
 						finishClapTime = input.runningTime()
 						finishClap = true
 					}
