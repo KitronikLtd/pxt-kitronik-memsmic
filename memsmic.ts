@@ -99,7 +99,7 @@ namespace kitronik_microphone {
 					}
 				}
 		if ((startClap) && (finishClap)){
-			if ((finishClapTime - startClapTime) == period)){
+			if ((finishClapTime - startClapTime) == period){
 				sound_handler()
 				startClap = false
 				startClapTime = 0
