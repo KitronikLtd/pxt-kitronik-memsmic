@@ -53,7 +53,7 @@ namespace kitronik_microphone {
 
     export function startClapListening(): void {
 		numberOfClaps = claps
-        period = timerperiod
+        //period = timerperiod
         if (clapListening) return
         control.inBackground(() => {
             while (true) {
@@ -84,7 +84,7 @@ namespace kitronik_microphone {
         //}
 		
 		if (waitForSingleClap(threshold, 50))
-				if (listenForNumberOfClaps == 1){
+				if (claps == 1){
 					sound_handler()
 				}
 				else{
