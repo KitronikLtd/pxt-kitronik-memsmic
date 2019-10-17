@@ -97,10 +97,13 @@ namespace kitronik_microphone {
 						finishClapTime = input.runningTime()
 						recordedClaps = 0
 						finishClap = true
+						
 					}
 				}
 		if ((startClap) && (finishClap)){
+			basic.showNumber(1)
 			if ((finishClapTime - startClapTime) <= period){
+				basic.showNumber(2)
 				sound_handler()
 				startClap = false
 				startClapTime = 0
