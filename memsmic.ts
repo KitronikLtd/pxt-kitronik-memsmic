@@ -34,7 +34,7 @@ namespace kitronik_microphone {
     //let clap_time = input.runningTime()
     export let threshold = 0
     export let baseVoltageLevel = 580
-    export let numberOfClaps = 1
+    export let numberOfClaps
     let claps = 1
 	let recordedClaps = 0
 	let	startClap = false
@@ -52,7 +52,7 @@ namespace kitronik_microphone {
     }
 
     export function startClapListening(): void {
-		numberOfClaps = claps
+		//numberOfClaps = claps
         //period = timerperiod
         if (clapListening) return
         control.inBackground(() => {
@@ -95,6 +95,7 @@ namespace kitronik_microphone {
 					}
 					else if (recordedClaps == numberOfClaps){
 						finishClapTime = input.runningTime()
+						recordedClaps = 0
 						finishClap = true
 					}
 				}
