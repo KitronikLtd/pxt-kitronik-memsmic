@@ -22,7 +22,6 @@ namespace kitronik_microphone {
     //}
 
     //Global variables and setting default values
-    //let soundSpike_handler: Action
     export let sound_handler: Action
     export let initialised = false
     export let micListening = false
@@ -31,7 +30,6 @@ namespace kitronik_microphone {
     export let samplesArray = [0, 0, 0, 0, 0]
     let maxSamplesArray = [0, 0, 0, 0, 0]
     let clapListening = false
-    //let clap_time = input.runningTime()
     export let threshold = 0
     export let baseVoltageLevel = 580
     export let numberOfClaps = 0
@@ -52,8 +50,6 @@ namespace kitronik_microphone {
     }
 
     export function startClapListening(): void {
-		//numberOfClaps = claps
-        //period = timerperiod
         if (clapListening) return
         control.inBackground(() => {
             while (true) {
@@ -78,12 +74,7 @@ namespace kitronik_microphone {
     }
 
     function poll(): void {
-        //if (waitForClaps(threshold, distance, period)) {
-        //    sound_handler()
-        //    clap_time = input.runningTime()
-        //}
-		
-		if (waitForSingleClap(threshold, 50))
+		if (waitForSingleClap(threshold, 100))
 				if (numberOfClaps == 1){
 					sound_handler()
 				}
@@ -101,16 +92,7 @@ namespace kitronik_microphone {
 					}
 				}
 		if ((startClap) && (finishClap)){
-			//basic.showNumber(1) //DEBUG
-			//basic.showString("S")//DEBUG
-			//basic.showNumber(startClapTime)//DEBUG
-			//basic.showString("F")//DEBUG
-			//basic.showNumber(finishClapTime)//DEBUG
-			//let delta = finishClapTime - startClapTime//DEBUG
-			//basic.showString("D")//DEBUG
-			//basic.showNumber(delta)//DEBUG
-			if ((finishClapTime - startClapTime) <= period){
-				//basic.showNumber(2)//DEBUG
+			if ((finishClapTime - startClapTime) <= (period + (period/10))){
 				sound_handler()
 			}
 			startClap = false
@@ -134,22 +116,22 @@ namespace kitronik_microphone {
         return false
     }
 
-    function waitForClaps(threshold: number, distance: number, timerperiod: number): boolean {
-        let startTimeOfWaiting = input.runningTime()
-        let recordedClaps = 0
-        while (input.runningTime() < (startTimeOfWaiting + timerperiod)) {
-            if (waitForSingleClap(threshold, 50)) {
-                control.waitMicros(5000)
-                if (waitForSingleClap(threshold, distance)) {
-                    recordedClaps += 1
-                }
-                if (recordedClaps == numberOfClaps) {
-                    return true
-                }
-            }
-        }
-        return false
-    }
+    //function waitForClaps(threshold: number, distance: number, timerperiod: number): boolean {
+    //    let startTimeOfWaiting = input.runningTime()
+    //    let recordedClaps = 0
+    //    while (input.runningTime() < (startTimeOfWaiting + timerperiod)) {
+    //        if (waitForSingleClap(threshold, 50)) {
+    //            control.waitMicros(5000)
+    //            if (waitForSingleClap(threshold, distance)) {
+    //                recordedClaps += 1
+    //            }
+    //            if (recordedClaps == numberOfClaps) {
+    //                return true
+    //            }
+     //       }
+    //    }
+    //    return false
+    //}
 
     //function commented out, code for future version
     ///**
