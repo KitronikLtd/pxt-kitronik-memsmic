@@ -22,7 +22,7 @@ namespace kitronik_microphone {
     //}
 
     //Global variables and setting default values
-    let soundSpike_handler: Action
+    //let soundSpike_handler: Action
     export let sound_handler: Action
     export let initialised = false
     export let micListening = false
@@ -31,11 +31,16 @@ namespace kitronik_microphone {
     export let samplesArray = [0, 0, 0, 0, 0]
     let maxSamplesArray = [0, 0, 0, 0, 0]
     let clapListening = false
-    let clap_time = input.runningTime()
+    //let clap_time = input.runningTime()
     export let threshold = 0
     export let baseVoltageLevel = 580
     export let numberOfClaps = 1
     let claps = 1
+	let recordedClaps = 0
+	let	startClap = false
+	let startClapTime = 0
+	let finishClap = false
+	let finishClapTime = 0
     export let period = 1000
     let distance = 500
 
@@ -47,6 +52,8 @@ namespace kitronik_microphone {
     }
 
     export function startClapListening(): void {
+		numberOfClaps = claps
+        period = timerperiod
         if (clapListening) return
         control.inBackground(() => {
             while (true) {
@@ -71,10 +78,35 @@ namespace kitronik_microphone {
     }
 
     function poll(): void {
-        if (waitForClaps(threshold, distance, period)) {
-            sound_handler()
-            clap_time = input.runningTime()
-        }
+        //if (waitForClaps(threshold, distance, period)) {
+        //    sound_handler()
+        //    clap_time = input.runningTime()
+        //}
+		
+		if (waitForSingleClap(threshold, 50))
+				if (listenForNumberOfClaps == 1){
+					sound_handler()
+				}
+				else{
+					recordedClaps += 1
+					if (startClap == false){
+						startClapTime = input.runningTime()
+						startClap = true
+					}
+					else if (recordedClaps == claps){
+						finishClapTime = input.runningTime()
+						finishClap = true
+					}
+				}
+		if ((startClap) && (finishClap)){
+			if ((finishClapTime - startClapTime) == period)){
+				sound_handler()
+				startClap = false
+				startClapTime = 0
+				finishClap = false
+				finishClapTime = 0
+			}
+		}
     }
 
     function waitForSingleClap(detectionLevel: number, waitPeriod: number): boolean {
