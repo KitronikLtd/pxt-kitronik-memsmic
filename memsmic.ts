@@ -102,6 +102,13 @@ namespace kitronik_microphone {
 				}
 		if ((startClap) && (finishClap)){
 			basic.showNumber(1)
+			basic.showString("S")
+			basic.showNumber(startClapTime)
+			basic.showString("F")
+			basic.showNumber(finishClapTime)
+			let delta = finishClapTime - startClapTime
+			basic.showString("D")
+			basic.showNumber(delta)
 			if ((finishClapTime - startClapTime) <= period){
 				basic.showNumber(2)
 				sound_handler()
