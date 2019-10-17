@@ -101,16 +101,16 @@ namespace kitronik_microphone {
 					}
 				}
 		if ((startClap) && (finishClap)){
-			basic.showNumber(1)
-			basic.showString("S")
-			basic.showNumber(startClapTime)
-			basic.showString("F")
-			basic.showNumber(finishClapTime)
-			let delta = finishClapTime - startClapTime
-			basic.showString("D")
-			basic.showNumber(delta)
+			//basic.showNumber(1) //DEBUG
+			//basic.showString("S")//DEBUG
+			//basic.showNumber(startClapTime)//DEBUG
+			//basic.showString("F")//DEBUG
+			//basic.showNumber(finishClapTime)//DEBUG
+			//let delta = finishClapTime - startClapTime//DEBUG
+			//basic.showString("D")//DEBUG
+			//basic.showNumber(delta)//DEBUG
 			if ((finishClapTime - startClapTime) <= period){
-				basic.showNumber(2)
+				//basic.showNumber(2)//DEBUG
 				sound_handler()
 			}
 			startClap = false
