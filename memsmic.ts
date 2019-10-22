@@ -26,20 +26,20 @@ namespace kitronik_microphone {
     export let initialised = false
     export let micListening = false
     export let microphonePin = AnalogPin.P0
-    let noiseSample = 0
     export let samplesArray = [0, 0, 0, 0, 0]
-    let maxSamplesArray = [0, 0, 0, 0, 0]
-    let clapListening = false
+    export let period = 1000
     export let threshold = 0
     export let baseVoltageLevel = 580
     export let numberOfClaps = 0
-    let claps = 1
+	
+	let noiseSample = 0
+	let clapListening = false
 	let recordedClaps = 0
 	let	startClap = false
 	let startClapTime = 0
 	let finishClap = false
 	let finishClapTime = 0
-    export let period = 1000
+    
     let distance = 500
 
     //Function to initialise the LCD and SPI
@@ -49,6 +49,7 @@ namespace kitronik_microphone {
         initialised = true
     }
 
+	//Function to start listening for claps/spikes in the background
     export function startClapListening(): void {
         if (clapListening) return
         control.inBackground(() => {
@@ -60,6 +61,7 @@ namespace kitronik_microphone {
         clapListening = true
     }
 
+	//Function to start listening for average sound level of 5 samples in the background
     export function micStartListening() {
 		if (micListening) return
         control.inBackground(() => {
@@ -73,35 +75,37 @@ namespace kitronik_microphone {
         micListening = true
     }
 
+	//Function runs when a clap is detected
     function poll(): void {
-		if (waitForSingleClap(threshold, 100))
+		if (waitForSingleClap(threshold, 100))		//If only looking for a single clap, run the handler code
 				if (numberOfClaps == 1){
 					sound_handler()
 				}
-				else{
+				else{								//record number of claps
 					recordedClaps += 1
-					if (startClap == false){
+					if (startClap == false){		//if its the first clap, record the time the clap occoured
 						startClapTime = input.runningTime()
 						startClap = true
 					}
-					else if (recordedClaps == numberOfClaps){
+					else if (recordedClaps == numberOfClaps){	//if its the last clap required, record the time the clap occoured
 						finishClapTime = input.runningTime()
 						recordedClaps = 0
 						finishClap = true
 						
 					}
 				}
-		if ((startClap) && (finishClap)){
-			if ((finishClapTime - startClapTime) <= (period + (period/10))){
-				sound_handler()
+		if ((startClap) && (finishClap)){			//if we have both start and finish claps, calculate the time between
+			if ((finishClapTime - startClapTime) <= (period + (period/10))){	//giving a 10 percent additional time for small differences over
+				sound_handler()						//if time difference between is within the allocated time slot, run handler code
 			}
-			startClap = false
+			startClap = false						//reset all the start and finish clap flags and variables
 			startClapTime = 0
 			finishClap = false
 			finishClapTime = 0
 		}
     }
 
+	//waits for any increase in sound level over a dectection level in a certain time period
     function waitForSingleClap(detectionLevel: number, waitPeriod: number): boolean {
         let startTimeOfWaiting = input.runningTime()
         while (input.runningTime() < (startTimeOfWaiting + waitPeriod)) {
@@ -116,22 +120,6 @@ namespace kitronik_microphone {
         return false
     }
 
-    //function waitForClaps(threshold: number, distance: number, timerperiod: number): boolean {
-    //    let startTimeOfWaiting = input.runningTime()
-    //    let recordedClaps = 0
-    //    while (input.runningTime() < (startTimeOfWaiting + timerperiod)) {
-    //        if (waitForSingleClap(threshold, 50)) {
-    //            control.waitMicros(5000)
-    //            if (waitForSingleClap(threshold, distance)) {
-    //                recordedClaps += 1
-    //            }
-    //            if (recordedClaps == numberOfClaps) {
-    //                return true
-    //            }
-     //       }
-    //    }
-    //    return false
-    //}
 
     //function commented out, code for future version
     ///**
@@ -141,7 +129,7 @@ namespace kitronik_microphone {
     ////% blockId=kitronik_microphone_pin_selection
     ////% block="set microphone to %selectedPin"
     ////% weight=95 blockGap=8
-    //export function pinSelection(selectedPin: SelectAnalogPin) {
+    //function pinSelection(selectedPin: SelectAnalogPin) {
     //    if (initialised == false) {
     //        init()
     //    }
@@ -173,72 +161,11 @@ namespace kitronik_microphone {
         if (initialised == false) {
             init()
         }
-        let read = pins.analogReadPin(microphonePin)
+        let read = (pins.analogReadPin(microphonePin) - baseVoltageLevel)
+		if (read < 0){
+			read = 0
+		}
         return read
     }
-
-    /*FUNCTIONS COMMENTED OUT AS THEY ARE ACTUALLY DEFINED IN THE OTHER EXTENSIOSN*/
-
-	///**
-    //* Read Sound Level blocks returns back a number of the current sound level averaged over 5 samples
-    //*/
-    ////% blockId=kitronik_microphone_read_average_sound_level
-    ////% block="read average sound level"
-    ////% weight=100 blockGap=8
-    //function readAverageSoundLevel() {
-    //    let x = 0
-    //    let soundlevel = 0
-    //    let sample = 0
-
-    //    if (initialised == false) {
-    //        init()
-    //    }
-
-    //    if (micListening == false) {
-    //        micStartListening()
-    //    }
-
-    //    for (x = 0; x < 5; x++) {
-    //        sample = samplesArray[x]
-    //        if (sample > soundlevel) {
-    //            soundlevel = sample
-    //        }
-    //    }
-
-    //    return soundlevel
-    //}
-
-    ///**
-	//* Performs an action when a spike in sound
-	//* @param claps is the number of claps to listen out for before running the function e.g. "1"
-	//* @param timerperiod is period of time in which to listen for the claps or spikes e.g. "1000"
-	//* @param soundSpike_handler is function that is run once detection in sound 
-    //*/
-    ////% blockId=kitronik_microphone_wait_for_clap
-    ////% block="wait for %claps claps within %timerperiod|ms"
-    ////% claps.min=1 claps.max=10
-    ////% timerperiod.min=500 timerperiod.max=2500
-    ////% weight=95 blockGap=8
-    //function waitForClap(claps: number, timerperiod: number, soundSpike_handler: Action): void {
-    //    if (initialised == false) {
-    //        init()
-    //    }
-    //    numberOfClaps = claps
-    //    period = timerperiod
-    //    sound_handler = soundSpike_handler
-    //    startClapListening()
-    //}
-
-	///**
-    // * Set how sensitive the microphone is when detecting claps
-    // * @param value - sensitivity (0-100)
-    // */
-    ////% blockId=kitronik_microphone_set_mic_sensitivity
-    ////% block="Set mic sensitivity to %value"
-    ////% value.min=0 value.max=100 value.defl=80
-    //function setClapSensitivity(value: number): void {
-    //    value = Math.clamp(0, 100, value)
-    //    threshold = baseVoltageLevel + (105 - value)
-    //}
 
 } 
