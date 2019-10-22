@@ -161,10 +161,8 @@ namespace kitronik_microphone {
         if (initialised == false) {
             init()
         }
-        let read = (pins.analogReadPin(microphonePin) - baseVoltageLevel)
-		if (read < 0){
-			read = 0
-		}
+        let read = pins.analogReadPin(microphonePin)
+
         return read
     }
 
