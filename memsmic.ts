@@ -4,23 +4,6 @@
  **/
 namespace kitronik_microphone {
 
-
-    //Enum commented out, code for future version
-    //export enum SelectAnalogPin {
-    //    //% block="P0"
-    //    P0,
-    //	//% block="P1"
-    //    P1,
-    //	//% block="P2"
-    //    P2,
-    //	//% block="P3"
-    //    P3,
-    //	//% block="P4"
-    //    P4,
-    //	//% block="P10"
-    //    P10
-    //}
-
     //Global variables and setting default values
     export let sound_handler: Action
     export let initialised = false
@@ -120,38 +103,6 @@ namespace kitronik_microphone {
         return false
     }
 
-
-    //function commented out, code for future version
-    ///**
-    //* Set microphone pin.
-    //* @param selection of which pin the microphone is connected to eg: "P0"
-    //*/
-    ////% blockId=kitronik_microphone_pin_selection
-    ////% block="set microphone to %selectedPin"
-    ////% weight=95 blockGap=8
-    //function pinSelection(selectedPin: SelectAnalogPin) {
-    //    if (initialised == false) {
-    //        init()
-    //    }
-    //	if (selectedPin = SelectAnalogPin.P0){
-    //		microphonePin = AnalogPin.P0
-    //	}
-    //	else if (selectedPin = SelectAnalogPin.P1){
-    //		microphonePin = AnalogPin.P1
-    //	}
-    //	else if (selectedPin = SelectAnalogPin.P2){
-    //		microphonePin = AnalogPin.P2
-    //	}
-    //	else if (selectedPin = SelectAnalogPin.P3){
-    //		microphonePin = AnalogPin.P3
-    //	}
-    //	else if (selectedPin = SelectAnalogPin.P4){
-    //		microphonePin = AnalogPin.P4
-    //	}
-    //	else if (selectedPin = SelectAnalogPin.P10){
-    //		microphonePin = AnalogPin.P10
-    //	}
-    //}
 
     /**
     * Read Sound Level blocks returns back a number of the current sound level at that point
