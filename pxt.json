@@ -10,8 +10,6 @@
         "README.md",
         "memsmic.ts"
     ],
-    "testFiles": [
-        "tests.ts"
-    ],
+    "testFiles": [],
     "public": true
 }
