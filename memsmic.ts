@@ -102,5 +102,21 @@ namespace kitronik_microphone {
         }
         return false
     }
+    
+    function readSoundLevel() {
+
+        if (initialised == false) {
+
+            init()
+
+        }
+
+        let read = pins.analogReadPin(microphonePin)
+
+
+
+        return read
+
+    }
 
 } 
