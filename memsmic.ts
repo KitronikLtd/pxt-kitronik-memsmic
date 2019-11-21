@@ -103,18 +103,4 @@ namespace kitronik_microphone {
         return false
     }
 
-
-    /**
-    * Read Sound Level blocks returns back a number of the current sound level at that point
-    */
-    //% blockId=kitronik_microphone_read_sound_level
-    function readSoundLevel() {
-        if (initialised == false) {
-            init()
-        }
-        let read = pins.analogReadPin(microphonePin)
-
-        return read
-    }
-
 } 
