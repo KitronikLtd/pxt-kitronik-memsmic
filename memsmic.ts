@@ -88,7 +88,7 @@ namespace kitronik_microphone {
 		}
     }
 
-	//waits for any increase in sound level over a dectection level in a certain time period
+	//waits for any increase in sound level over a detection level in a certain time period
     function waitForSingleClap(detectionLevel: number, waitPeriod: number): boolean {
         let startTimeOfWaiting = input.runningTime()
         while (input.runningTime() < (startTimeOfWaiting + waitPeriod)) {
@@ -103,7 +103,7 @@ namespace kitronik_microphone {
         return false
     }
     
-    function readSoundLevel() {
+    export function readSoundLevel() {
 
         if (initialised == false) {
 
