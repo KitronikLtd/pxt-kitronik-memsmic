@@ -1,6 +1,6 @@
 {
     "name": "pxt-kitronik-memsmic",
-    "version": "0.0.22",
+    "version": "0.0.23",
     "description": "Blocks to simplify using Kitronik MEMS microphone in PXT",
     "license": "MIT",
     "dependencies": {
