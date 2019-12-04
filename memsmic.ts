@@ -114,7 +114,7 @@ namespace kitronik_microphone {
         let read = pins.analogReadPin(microphonePin)
 // offset to zero 
 	read -=520
-	return math.abs(read) //return a magnitude not a +-value
+	return Math.abs(read) //return a magnitude not a +-value
 
     }
 
