@@ -92,8 +92,8 @@ namespace kitronik_microphone {
     function waitForSingleClap(detectionLevel: number, waitPeriod: number): boolean {
         let startTimeOfWaiting = input.runningTime()
         while (input.runningTime() < (startTimeOfWaiting + waitPeriod)) {
-            if (readSoundLevel() > detectionLevel) {
-                while (readSoundLevel() > detectionLevel) {
+            if (detectSoundLevel() > detectionLevel) {
+                while (detectSoundLevel() > detectionLevel) {
                     control.waitMicros(10)
                 }
                 return true
@@ -102,20 +102,25 @@ namespace kitronik_microphone {
         }
         return false
     }
-    
-    export function readSoundLevel() {
 
+    export function readSoundLevel(){
         if (initialised == false) {
-
             init()
-
         }
 
         let read = pins.analogReadPin(microphonePin)
-// offset to zero 
-	read -=520
-	return Math.abs(read) //return a magnitude not a +-value
+        // offset to zero 
+        read -=520
+        return Math.abs(read) //return a magnitude not a +-value
+    }
 
+    function detectSoundLevel(){
+        if (initialised == false) {
+            init()
+        }
+
+        let read = pins.analogReadPin(microphonePin)
+        return read //return actual value from microphone
     }
 
 } 
