@@ -33,16 +33,8 @@ namespace kitronik_microphone {
     }
 
     //Function to change the pin to read the microphone
-    export function setMicrophonePin(pin:string) {
-        if (pin == "P0"){
-            microphonePin = AnalogPin.P0
-        }
-        else if (pin == "P1"){
-            microphonePin = AnalogPin.P1
-        }
-        else if (pin == "P2"){
-            microphonePin = AnalogPin.P2
-        }
+    export function setMicrophonePin(pin: any) {
+        microphonePin = pin
     }
 
 	//Function to start listening for claps/spikes in the background
