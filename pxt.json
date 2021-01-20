@@ -11,5 +11,9 @@
         "memsmic.ts"
     ],
     "testFiles": [],
-    "public": true
+    "public": true,
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
 }
